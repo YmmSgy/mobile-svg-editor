@@ -1,38 +1,38 @@
 'use strict';
 
-/* const downloadLink = document.getElementById('downloadLink');
+const debugBar = document.getElementById('debugbar');
 
-const dlUrl = URL.createObjectURL(new File(
-	['Hello World!\n'], '', {type: 'text/plain'}
-));
-downloadLink.setAttribute('href', dlUrl); */
+const toolbarMoveData = {
+	toolbar: null,
+	pOffsetX: null,
+	pOffsetY: null
+};
+function toolbarStartDragHandler(e) {
+	toolbarMoveData.toolbar = e.currentTarget;
 
-// setup toolbar object to reference toolbars
-const toolbars = {};
-for (const toolbar of document.getElementsByClassName('toolbarCollection')) {
-	// make every toolbar draggable
-	toolbar.addEventListener('dragstart', e => {
-		const cs = getComputedStyle(e.currentTarget);
-		const toolbarData = {
-			name: e.currentTarget.id,
-			xOffset: e.clientX - Number(cs.left.match(/\d+(?=px)/)),
-			yOffset: e.clientY - Number(cs.top.match(/\d+(?=px)/))
-		};
-		e.dataTransfer.setData('application/toolbar', JSON.stringify(toolbarData));
-		e.dataTransfer.setData('text/plain', e.currentTarget.id);
-	});
-	toolbars[toolbar.id] = toolbar;
+	// get initial left and top css properties
+	const toolbarStyle = getComputedStyle(toolbarMoveData.toolbar);
+	const leftValue = toolbarStyle.left.match(/[\d\.]+(?=px)/);
+	const topValue = toolbarStyle.top.match(/[\d\.]+(?=px)/);
+
+	// save initial pointer offset
+	toolbarMoveData.pOffsetX = e.clientX - leftValue;
+	toolbarMoveData.pOffsetY = e.clientY - topValue;
+
+	document.body.addEventListener('pointermove', toolbarDragHandler);
+	document.body.addEventListener('pointerup', toolbarEndDragHandler, {once: true});
+}
+function toolbarDragHandler(e) {
+	toolbarMoveData.toolbar.style.left = `${e.clientX - toolbarMoveData.pOffsetX}px`;
+	toolbarMoveData.toolbar.style.top = `${e.clientY - toolbarMoveData.pOffsetY}px`;
+}
+function toolbarEndDragHandler(e) {
+	document.body.removeEventListener('pointermove', toolbarDragHandler);
 }
 
-document.body.addEventListener('dragenter', e => {
-	if (e.dataTransfer.types.includes('application/toolbar')) e.preventDefault();
-});
-document.body.addEventListener('dragover', e => {
-	if (e.dataTransfer.types.includes('application/toolbar')) e.preventDefault();
-});
-document.body.addEventListener('drop', e => {
-	e.preventDefault();
-	const toolbarData = JSON.parse(e.dataTransfer.getData('application/toolbar'));
-	toolbars[toolbarData.name].style.left = `${e.clientX - toolbarData.xOffset}px`;
-	toolbars[toolbarData.name].style.top = `${e.clientY - toolbarData.yOffset}px`;
-})
+// setup toolbar object to hold references to toolbars
+const toolbars = {};
+for (const toolbar of document.getElementsByClassName('toolbarCollection')) {
+	toolbar.addEventListener('pointerdown', toolbarStartDragHandler);
+	toolbars[toolbar.id] = toolbar;
+}
