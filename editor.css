@@ -1,10 +1,12 @@
 :root {
     --toolbar-intraspacing: 0.3rem;
-    --colour-toolbar-background: rgb(220,220,220);
-    --colour-toolbar-divider: rgb(180,180,180);
+    --colour-toolbar-background: rgb(230,230,230);
+    --colour-toolbar-divider: rgb(150,150,150);
     --colour-toolbar-hdr: rgb(140,140,140);
-    --colour-toolbar-hilite: rgb(190,190,190);
     --colour-toolbar-text: rgb(80,80,80);
+    --colour-toolbar-hilite: rgb(80,80,80);
+    --colour-toolbar-hilite-text: rgb(240,240,240);
+    --colour-toolbar-shadow: rgb(80,80,80);
 }
 * {
 	box-sizing: border-box;
@@ -12,6 +14,7 @@
     padding: 0;
 	border: none;
     background-color: transparent;
+    user-select: none;
 }
 html, body {
     position: fixed;
@@ -55,7 +58,7 @@ body * {
 
     background-color: var(--colour-toolbar-background);
     border-radius: var(--toolbar-intraspacing);
-    box-shadow: 0 0 0.5rem 0rem rgb(80, 80, 80);
+    box-shadow: 0 0 0.5rem 0rem var(--colour-toolbar-shadow);
 }
 .toolbarDivider {
     /* height fit container, left-right set margin equal to parent's padding */
@@ -68,7 +71,6 @@ body * {
 }
 .toolbarHdr {
     /* text settings for toolbar header */
-    user-select: none;
     text-transform: capitalize;
     font: bold small-caps xx-small sans-serif;
     color: var(--colour-toolbar-hdr);
@@ -91,7 +93,8 @@ body * {
     font: bold medium sans-serif;
     border-radius: var(--toolbar-intraspacing);
 }
-.toolbarItem:hover {
+.activeToolbarItem {
+    color: var(--colour-toolbar-hilite-text);
     background-color: var(--colour-toolbar-hilite);
 }
 
