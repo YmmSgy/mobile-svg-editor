@@ -2,6 +2,7 @@
 
 const debugBar = document.getElementById('debugbar');
 
+// data of toolbar currently being moved
 const toolbarMoveData = {
 	toolbar: null,
 	pOffsetX: null,
@@ -23,10 +24,12 @@ function toolbarStartDragHandler(e) {
 	document.body.addEventListener('pointerup', toolbarEndDragHandler, {once: true});
 }
 function toolbarDragHandler(e) {
+	toolbarMoveData.toolbar.classList.add('movingToolbar');
 	toolbarMoveData.toolbar.style.left = `${e.clientX - toolbarMoveData.pOffsetX}px`;
 	toolbarMoveData.toolbar.style.top = `${e.clientY - toolbarMoveData.pOffsetY}px`;
 }
 function toolbarEndDragHandler(e) {
+	toolbarMoveData.toolbar.classList.remove('movingToolbar');
 	document.body.removeEventListener('pointermove', toolbarDragHandler);
 }
 
