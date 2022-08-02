@@ -1,13 +1,3 @@
-:root {
-    --toolbar-intraspacing: 0.3rem;
-    --colour-toolbar-background: rgb(230,230,230);
-    --colour-toolbar-divider: rgb(150,150,150);
-    --colour-toolbar-hdr: rgb(140,140,140);
-    --colour-toolbar-text: rgb(80,80,80);
-    --colour-toolbar-hilite: rgb(80,80,80);
-    --colour-toolbar-hilite-text: rgb(240,240,240);
-    --colour-toolbar-shadow: rgb(80,80,80);
-}
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -25,87 +15,84 @@ html, body {
     height: 100%;
     width: 100%;
 }
+body {
+    display: flex;
+    flex-flow: column nowrap;
+}
 body * {
     display: block;
     touch-action: none;
+    font: 1rem 'Roboto';
 }
 
-/*
-    //                        toolbarDivider
-    //                          |
-    .-toolbarCollection---------|----------------------.
-    | .-toolbar-------------. .-|-. .-toolbar--------. |
-    | | [toolbarHdr]        | | V | | [toolbarHdr]   | |
-    | | .-toolbarItems----. | |   | | .toolbarItems. | |
-    | | | .---..---..---. | | |   | | | .---..---. | | |
-    | | | | A || B || C | | | |   | | | | D || E | | | |
-    | | | '---''---''---' | | |   | | | '---''---' | | |
-    | | '-----------------' | |   | | '------------' | |
-    | '---------------------' '---' '----------------' |
-    '--------------------------------------------------'
-*/
-.toolbarCollection {
-    /* whole toolbar is fixed relative to viewport */
-    position: fixed;
-    height: max-content;
-    width: max-content;
-    /* flex items to control their sizes */
+#topbar {
     display: flex;
     flex-flow: row nowrap;
-    align-items: flex-start;
-    /* apply padding around items */
-    padding: var(--toolbar-intraspacing);
-
-    background-color: var(--colour-toolbar-background);
-    border-radius: var(--toolbar-intraspacing);
-    box-shadow: 0 0 0.5rem 0rem var(--colour-toolbar-shadow);
 }
-.toolbarDivider {
-    /* height fit container, left-right set margin equal to parent's padding */
-    align-self: stretch;
-    margin: 0 var(--toolbar-intraspacing);
 
-    width: 3px;
-    background-color: var(--colour-toolbar-divider);
-    border-radius: 0.1rem;
-}
-.toolbarHdr {
-    /* text settings for toolbar header */
-    text-transform: capitalize;
-    font: bold small-caps xx-small sans-serif;
-    color: var(--colour-toolbar-hdr);
-
-    padding: 0.1rem;
-}
-.toolbarItems {
-    /* flex items to control their sizes */
+.popup-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
-    align-items: flex-start;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255,255,255,0.3);
 }
-/* select all except first child of toolbarItems */
-.toolbarItems > *:nth-child(n+2) {
-    margin-left: var(--toolbar-intraspacing);
+.popup {
+    max-height: 80%;
+    max-width: 80%;
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: 0 0 1rem 0.1rem gray;
 }
-.toolbarItem {
-    color: var(--colour-toolbar-text);
-    padding: var(--toolbar-intraspacing);
-    text-transform: capitalize;
-    font: bold medium sans-serif;
-    border-radius: var(--toolbar-intraspacing);
-}
-.activeToolbarItem {
-    color: var(--colour-toolbar-hilite-text);
-    background-color: var(--colour-toolbar-hilite);
-}
-
-.movingToolbar {
-    opacity: 0.7;
+.popup-hdr, .popup-action-btn {
+    padding: 0.6rem;
+    background-color: rgb(210,210,210);
 }
 
-.debugbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: min-content;
+.optionslist {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    background-color: rgb(255,255,255);
+}
+.optionslist>li {
+    display: flex;
+    padding: 0.2rem;
+    background-color: rgb(255,255,255);
+}
+.optionslist>li>* {
+    padding: 0.3rem;
+    flex: 1 1 auto;
+}
+.optionslist>li input {
+    width: 8rem;
+    flex: 0 0 auto;
+    background-color: rgb(220,220,220);
+}
+
+#svgout {
+    flex: 1 1 0;
+}
+
+#toolbar {
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 1 1 0;
+    overflow-x: auto;
+    padding: 0.3rem;
+    background-color: rgb(200,200,200);
+}
+#toolbar>li {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0.1rem;
+}
+#toolbar>li>* {
+    padding: 0.2rem;
+}
+#toggleoptions {
+    padding: 0.3rem;
+    background-color: rgb(200,200,200);
 }

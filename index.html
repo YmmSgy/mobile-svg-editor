@@ -5,82 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="editor.css">
     <title>SVG Editor</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    </style>
   </head>
   <body>
-    <svg width="100%" height="100%" viewBox="0 0 100 100">
+    <div id="topbar">
+      <menu id="toolbar">
+        <li><button type="button" id="polygon">polygon</button></li>
+        <li><button type="button" id="rect">rect</button></li>
+        <li><button type="button" id="circle">circle</button></li>
+        <li><button type="button" id="ellipse">ellipse</button></li>
+      </menu>
+      <button type="button" id="toggleoptions">options</button>
+    </div>
+    <svg id="svgout" viewBox="0 0 100 100">
+      <rect x="0.1" y="0.1" width="99.8" height="99.8" fill="none" stroke="black" stroke-width="0.2" stroke-dasharray="0.5" id="__viewboxBorder"/>
       <circle cx="50" cy="50" r="50" fill="gray"/>
     </svg>
-    <ul id="toolbarToolbar" class="toolbarCollection" style="left: 1rem; top: 1rem;">
-      <li class="toolbar">
-        <header class="toolbarHdr">Toolbars</header>
-        <menu id="toolbarsSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">view</button></li>
-          <li><button type="button" class="toolbarItem">file</button></li>
-          <li><button type="button" class="toolbarItem">selection</button></li>
-          <li><button type="button" class="toolbarItem">drawing</button></li>
+    <div class="popup-bg">
+      <div class="popup">
+        <header class="popup-hdr">Tool Options</header>
+        <menu class="popup-body optionslist">
+          <li>
+            <label for="rectIdInput">id</label>
+            <input type="text" value="rect1" id="rectIdInput">
+          </li>
+          <li>
+            <label for="rectXInput">x</label>
+            <input type="number" value="0" id="rectXInput">
+          </li>
+          <li>
+            <label for="rectYInput">y</label>
+            <input type="number" value="0" id="rectYInput">
+          </li>
+          <li>
+            <label for="rectWidthInput">width</label>
+            <input type="number" value="10" id="rectWidthInput">
+          </li>
+          <li>
+            <label for="rectHeightInput">height</label>
+            <input type="number" value="10" id="rectHeightInput">
+          </li>
+          <li>
+            <label for="rectFillInput">fill</label>
+            <input type="color" id="rectFillInput">
+          </li>
         </menu>
-      </li>
-      <li class="toolbarDivider"></li>
-      <li class="toolbar">
-        <header class="toolbarHdr">Help</header>
-        <menu id="helpSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">settings</button></li>
-          <li><button type="button" class="toolbarItem">help</button></li>
-        </menu>
-      </li>
-    </ul>
-    <ul id="viewToolbar" class="toolbarCollection" style="left: 1rem; top: 5rem;">
-      <li class="toolbar">
-        <header class="toolbarHdr">View</header>
-        <menu id="viewSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">viewport</button></li>
-          <li><button type="button" class="toolbarItem">grid</button></li>
-          <li><button type="button" class="toolbarItem">zoom</button></li>
-        </menu>
-      </li>
-    </ul>
-    <ul id="fileToolbar" class="toolbarCollection" style="left: 1rem; top: 9rem;">
-      <li class="toolbar">
-        <header class="toolbarHdr">File</header>
-        <menu id="fileSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">open</button></li>
-          <li><button type="button" class="toolbarItem">download</button></li>
-          <li><button type="button" class="toolbarItem">preview</button></li>
-        </menu>
-      </li>
-    </ul>
-    <ul id="selectionToolbar" class="toolbarCollection" style="left: 1rem; top: 13rem;">
-      <li class="toolbar">
-        <header class="toolbarHdr">Selection</header>
-        <menu id="selectionSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">select</button></li>
-          <li><button type="button" class="toolbarItem">multi-select</button></li>
-          <li><button type="button" class="toolbarItem">cancel select</button></li>
-        </menu>
-      </li>
-    </ul>
-    <ul id="drawingToolbar" class="toolbarCollection" style="left: 1rem; top: 17rem;">
-      <li class="toolbar">
-        <header class="toolbarHdr">Shapes</header>
-        <menu id="shapesSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">polygon</button></li>
-          <li><button type="button" class="toolbarItem">rect</button></li>
-          <li><button type="button" class="toolbarItem">circle</button></li>
-          <li><button type="button" class="toolbarItem">ellipse</button></li>
-        </menu>
-      </li>
-      <li class="toolbarDivider"></li>
-      <li class="toolbar">
-        <header class="toolbarHdr">Lines</header>
-        <menu id="linesSubToolbar" class="toolbarItems">
-          <li><button type="button" class="toolbarItem">line</button></li>
-          <li><button type="button" class="toolbarItem">polyline</button></li>
-          <li><button type="button" class="toolbarItem">path</button></li>
-        </menu>
-      </li>
-    </ul>
-    <div id="debugbar" class="debugbar">Debug messages shown here</div>
-    <a href="#" download="helloworld.txt" id="downloadLink" style="display:none;">download</a>
+        <button type="button" class="popup-action-btn">Done</button>
+      </div>
+    </div>
     <script src="editor.js"></script>
   </body>
 </html>
